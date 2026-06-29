@@ -4,6 +4,16 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { heroBrief, heroPrimaryCta, totalSections } from "@/lib/briefing-content";
 import { Magnetic } from "./Magnetic";
+import { ScrollCue } from "./ScrollCue";
+import { SparklesCore } from "@/components/ui/sparkles";
+import { smoothScrollTo } from "@/lib/smooth-scroll";
+
+function scrollHandler(targetId: string) {
+  return (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    smoothScrollTo(targetId);
+  };
+}
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -29,6 +39,25 @@ export function Hero() {
         overflow: "hidden",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          maskImage: "radial-gradient(60% 60% at 50% 40%, black, transparent)",
+        }}
+      >
+        <SparklesCore
+          background="transparent"
+          minSize={0.4}
+          maxSize={1.1}
+          particleDensity={70}
+          particleColor="#3EFF8B"
+          speed={0.6}
+          className="h-full w-full"
+        />
+      </div>
+
       <motion.div
         style={{ position: "absolute", inset: 32, pointerEvents: "none", y: cornersY }}
       >
@@ -102,6 +131,7 @@ export function Hero() {
           <Magnetic>
             <a
               href={heroPrimaryCta.href}
+              onClick={scrollHandler(heroPrimaryCta.href.replace("#", ""))}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -124,6 +154,7 @@ export function Hero() {
           <Magnetic>
             <a
               href="#contact"
+              onClick={scrollHandler("contact")}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -173,26 +204,7 @@ export function Hero() {
           <br />
           + Policy
         </div>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-          <span
-            style={{
-              fontFamily: "var(--font-brief-mono)",
-              fontSize: 10,
-              letterSpacing: "0.2em",
-              color: "rgba(237,237,237,0.4)",
-              textTransform: "uppercase",
-            }}
-          >
-            Scroll to brief
-          </span>
-          <span
-            style={{
-              width: 1,
-              height: 30,
-              background: "linear-gradient(180deg, rgba(62,255,139,0.6), transparent)",
-            }}
-          />
-        </div>
+        <ScrollCue targetId="situation" label="Scroll to brief" />
         <div
           style={{
             fontFamily: "var(--font-brief-mono)",

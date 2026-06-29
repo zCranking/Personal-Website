@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { callsignTag, SHOW_OPERATIONS } from "@/lib/briefing-content";
 import { MissionClock } from "./MissionClock";
+import { smoothScrollTo } from "@/lib/smooth-scroll";
 
 const SECTIONS = [
   { id: "situation", label: "Situation" },
@@ -126,6 +127,10 @@ export function TopNav({ initials }: { initials: string }) {
                 if (el) navLinks.current[s.id] = el;
               }}
               href={`#${s.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                smoothScrollTo(s.id);
+              }}
               style={{
                 fontFamily: "var(--font-brief-mono)",
                 fontSize: 11,

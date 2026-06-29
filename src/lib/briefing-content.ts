@@ -5,7 +5,7 @@ import { site } from "./content";
 
 // Flip to true once the Operations dossiers (below) have real content —
 // it slots back in with correct nav links, section numbering, and hero CTA.
-export const SHOW_OPERATIONS = false;
+export const SHOW_OPERATIONS = true;
 
 export const callsignTag = "callsign · student";
 
