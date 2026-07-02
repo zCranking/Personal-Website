@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { ops } from "@/lib/briefing-content";
 
 export function DossierModal({
@@ -12,6 +13,45 @@ export function DossierModal({
 }) {
   const isOpen = openIdx != null;
   const cur = ops[openIdx ?? 0];
+  const panelRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const restoreRef = useRef<HTMLElement | null>(null);
+
+  // Focus management + scroll lock: capture focus on open, keep Tab inside
+  // the panel, restore focus and page scroll on close.
+  useEffect(() => {
+    if (!isOpen) return;
+
+    restoreRef.current = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const trap = (e: KeyboardEvent) => {
+      if (e.key !== "Tab" || !panelRef.current) return;
+      const focusables = panelRef.current.querySelectorAll<HTMLElement>(
+        'button, a[href], [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", trap);
+
+    return () => {
+      window.removeEventListener("keydown", trap);
+      document.body.style.overflow = prevOverflow;
+      restoreRef.current?.focus();
+    };
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
@@ -31,11 +71,16 @@ export function DossierModal({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            padding: 40,
+            padding: "clamp(14px, 4vw, 40px)",
           }}
         >
           <div
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="dossier-title"
             onClick={(e) => e.stopPropagation()}
+            className="brief-modal-panel"
             style={{
               position: "relative",
               width: "100%",
@@ -44,7 +89,6 @@ export function DossierModal({
               overflowY: "auto",
               background: "#101012",
               border: "1px solid rgba(62,255,139,0.25)",
-              padding: "48px 52px",
               animation: "brief-unseal 0.5s cubic-bezier(0.16,1,0.3,1) both",
             }}
           >
@@ -77,6 +121,7 @@ export function DossierModal({
                 justifyContent: "space-between",
                 alignItems: "flex-start",
                 marginBottom: 8,
+                gap: 16,
               }}
             >
               <span
@@ -90,6 +135,7 @@ export function DossierModal({
                 {cur.code} · {cur.tag} · DECLASSIFIED
               </span>
               <button
+                ref={closeRef}
                 onClick={onClose}
                 aria-label="Close dossier"
                 style={{
@@ -99,6 +145,7 @@ export function DossierModal({
                   color: "rgba(237,237,237,0.7)",
                   width: 30,
                   height: 30,
+                  flexShrink: 0,
                   fontFamily: "var(--font-brief-mono)",
                   fontSize: 13,
                 }}
@@ -108,6 +155,7 @@ export function DossierModal({
             </div>
 
             <h3
+              id="dossier-title"
               style={{
                 fontSize: "clamp(32px,5vw,52px)",
                 fontWeight: 600,
@@ -136,6 +184,8 @@ export function DossierModal({
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                gap: 16,
+                flexWrap: "wrap",
               }}
             >
               <span
@@ -185,11 +235,8 @@ function DossierRow({
 }) {
   return (
     <div
+      className="brief-dossier-row"
       style={{
-        display: "grid",
-        gridTemplateColumns: "130px 1fr",
-        gap: 24,
-        alignItems: "start",
         animation: `brief-fadeUp 0.4s ease ${delay}s both`,
       }}
     >

@@ -6,12 +6,12 @@ export function Situation() {
   return (
     <section
       id="situation"
+      className="brief-section"
       style={{
         position: "relative",
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        padding: "120px 40px",
         borderTop: "1px solid rgba(237,237,237,0.08)",
         scrollSnapAlign: "start",
       }}
@@ -30,16 +30,9 @@ export function Situation() {
               color: "#F4F4F4",
             }}
           >
-            {situation.lead.split("decisions around it").map((part, i, arr) =>
-              i === arr.length - 1 ? (
-                part
-              ) : (
-                <span key={i}>
-                  {part}
-                  <span style={{ color: "#3EFF8B" }}>decisions around it</span>
-                </span>
-              )
-            )}
+            {situation.lead.before}
+            <span style={{ color: "#3EFF8B" }}>{situation.lead.highlight}</span>
+            {situation.lead.after}
           </p>
         </Reveal>
         <Reveal delay={0.12}>

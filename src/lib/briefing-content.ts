@@ -3,11 +3,13 @@
 
 import { site } from "./content";
 
-// Flip to true once the Operations dossiers (below) have real content —
-// it slots back in with correct nav links, section numbering, and hero CTA.
+// KEEP FALSE until every [bracketed] placeholder in `ops` below is replaced
+// with real content — names, numbers, outcomes. While false, the section,
+// its nav link, and the hero CTA are hidden and numbering adapts. Flipping
+// this to true with placeholders still present ships bracket text to visitors.
 export const SHOW_OPERATIONS = false;
 
-export const callsignTag = "callsign · student";
+export const callsignTag = "builder · policy";
 
 export const sectionIndex = {
   situation: "02",
@@ -26,11 +28,19 @@ export const heroBrief = {
   statusLine: `Briefing · ${site.name} · Status Active`,
   heading: site.name,
   subhead:
-    "I build systems that have to hold under load & unreliable circumstances. My experience in building AI products, student government, and a military leadership track that doesn't forgive bad decisions. The cost of being wrong is never just a grade.",
+    "I build AI products, carry elected responsibility in student government, and train in a military leadership track that doesn't forgive bad decisions. Different arenas, same lesson: the cost of being wrong is never just a grade.",
 };
 
 export const situation = {
-  lead: "The hard part is never the model. It's the decisions around it — who's accountable, what breaks under pressure, and whether anyone trusts what they're holding.",
+  // `highlight` is rendered in the accent color inside `lead` — keep it a
+  // verbatim substring of the sentence, defined once here instead of
+  // string-matched in the component.
+  lead: {
+    before: "The hard part is never the model. It's the ",
+    highlight: "decisions around it",
+    after:
+      " — who's accountable, what breaks under pressure, and whether anyone trusts what they're holding.",
+  },
   body: "I work at the seam between AI systems and the institutions that have to govern them — building the software, and learning to lead the people, so both hold when it counts.",
 };
 
@@ -85,14 +95,15 @@ export const ops: Op[] = [
 
 export type Asset = { slot: string; name: string; kind: string };
 
+// Six tiles, each earning its slot — table-stakes tools (Git, deploy
+// platforms) dilute the signal for senior readers. "Policy & Law" stays
+// last on purpose: it's the anomaly that makes the loadout memorable.
 export const assets: Asset[] = [
   { slot: "LANG-01", name: "TypeScript", kind: "Primary" },
   { slot: "LANG-02", name: "Python", kind: "AI / ML" },
   { slot: "FRAMEWORK-01", name: "Next.js", kind: "Product" },
   { slot: "DB-01", name: "Supabase", kind: "Data" },
   { slot: "AI-01", name: "LLM APIs", kind: "Intelligence" },
-  { slot: "CLOUD-01", name: "Vercel", kind: "Deploy" },
-  { slot: "TOOL-01", name: "Git", kind: "Workflow" },
   { slot: "DOMAIN-01", name: "Policy & Law", kind: "Context" },
 ];
 

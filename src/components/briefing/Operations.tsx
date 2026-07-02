@@ -10,10 +10,10 @@ export function Operations({ onOpen }: { onOpen: (idx: number) => void }) {
   return (
     <section
       id="operations"
+      className="brief-section"
       style={{
         position: "relative",
         minHeight: "100vh",
-        padding: "120px 40px",
         borderTop: "1px solid rgba(237,237,237,0.08)",
         scrollSnapAlign: "start",
       }}
@@ -34,7 +34,7 @@ export function Operations({ onOpen }: { onOpen: (idx: number) => void }) {
           </h2>
         </Reveal>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 22 }}>
+        <div className="brief-ops-grid">
           {ops.map((op, i) => (
             <OperationCard key={op.code} op={op} index={i} onClick={() => onOpen(i)} />
           ))}
@@ -64,6 +64,17 @@ function OperationCard({
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onFocus={() => setHovered(true)}
+      onBlur={() => setHovered(false)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`Open dossier: ${op.title}`}
       style={{
         position: "relative",
         cursor: "pointer",
@@ -148,6 +159,7 @@ function OperationCard({
       </div>
       <div>
         <div
+          className="brief-card-teaser"
           style={{
             overflow: "hidden",
             maxHeight: hovered ? 120 : 0,

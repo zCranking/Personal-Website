@@ -6,8 +6,8 @@ export const site = {
   name: "Arav Gupta",
   role: "Builder. Future policymaker. Currently in high school.",
   email: "aravgupta2019@gmail.com",
-  github: "https://github.com/[your-handle]",
-  linkedin: "https://linkedin.com/in/[your-handle]",
+  github: "https://github.com/zCranking",
+  linkedin: "https://www.linkedin.com/in/arav-gupta-9b581a355/",
   twitter: "https://x.com/[your-handle]",
 };
 

@@ -1,11 +1,14 @@
+import Link from "next/link";
 import { footer, site } from "@/lib/content";
 
+// Placeholder "[your-handle]" URLs are filtered out until they're real —
+// a dead social link costs more credibility than a missing one.
 const LINKS = [
   { label: "Email", href: `mailto:${site.email}` },
   { label: "GitHub", href: site.github },
   { label: "LinkedIn", href: site.linkedin },
   { label: "X", href: site.twitter },
-];
+].filter((link) => !link.href.includes("["));
 
 export function Footer() {
   return (
@@ -32,6 +35,11 @@ export function Footer() {
           {footer.line} {footer.lastUpdated}
         </p>
       </div>
+      <p className="mt-6 font-sans text-sm text-muted">
+        <Link href="/" className="transition-colors hover:text-foreground">
+          ← Back to the briefing
+        </Link>
+      </p>
     </footer>
   );
 }

@@ -2,6 +2,10 @@
 
 import { useEffect, useRef } from "react";
 
+const SEEN_KEY = "brief-cold-open-seen";
+
+// Plays once per session, and any click/keypress skips straight to content.
+// An intro may delight the first time; repeated or forced, it's a toll.
 export function ColdOpen({ statusLine }: { statusLine: string }) {
   const coldRef = useRef<HTMLDivElement>(null);
   const typeRef = useRef<HTMLSpanElement>(null);
@@ -15,50 +19,75 @@ export function ColdOpen({ statusLine }: { statusLine: string }) {
     const scan = scanRef.current;
     if (!cold || !type) return;
 
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem(SEEN_KEY) === "1";
+      sessionStorage.setItem(SEEN_KEY, "1");
+    } catch {
+      // storage unavailable (private mode) — play normally
+    }
+
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const full = statusLine.toUpperCase();
     let timer: ReturnType<typeof setTimeout>;
+    let dismissed = false;
 
-    if (reduceMotion) {
-      cold.style.transition = "opacity 0.3s ease";
+    const dismiss = (instant = false) => {
+      if (dismissed) return;
+      dismissed = true;
+      clearTimeout(timer);
+      if (instant) {
+        cold.style.display = "none";
+        return;
+      }
+      cold.style.transition = "opacity 0.35s ease";
       cold.style.opacity = "0";
       timer = setTimeout(() => {
         cold.style.display = "none";
-      }, 300);
+      }, 370);
+    };
+
+    if (seen || reduceMotion) {
+      dismiss(seen);
       return () => clearTimeout(timer);
     }
 
+    const skip = () => dismiss();
+    window.addEventListener("pointerdown", skip);
+    window.addEventListener("keydown", skip);
+
     let i = 0;
     const tick = () => {
+      if (dismissed) return;
       type.textContent = full.slice(0, i);
       i++;
       if (i <= full.length) {
-        timer = setTimeout(tick, 34 + Math.random() * 40);
+        timer = setTimeout(tick, 22 + Math.random() * 26);
       } else {
         timer = setTimeout(() => {
+          if (dismissed) return;
           if (caret) caret.style.display = "none";
           if (scan) {
             scan.style.opacity = "1";
             scan.style.animation = "brief-scanDown 0.55s cubic-bezier(0.7,0,0.84,0) forwards";
           }
-          timer = setTimeout(() => {
-            cold.style.transition = "opacity 0.5s ease";
-            cold.style.opacity = "0";
-            timer = setTimeout(() => {
-              cold.style.display = "none";
-            }, 520);
-          }, 360);
-        }, 750);
+          timer = setTimeout(() => dismiss(), 330);
+        }, 450);
       }
     };
-    timer = setTimeout(tick, 500);
+    timer = setTimeout(tick, 250);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("pointerdown", skip);
+      window.removeEventListener("keydown", skip);
+    };
   }, [statusLine]);
 
   return (
     <div
       ref={coldRef}
+      aria-hidden
       style={{
         position: "fixed",
         inset: 0,
@@ -78,6 +107,8 @@ export function ColdOpen({ statusLine }: { statusLine: string }) {
           letterSpacing: "0.18em",
           color: "#3EFF8B",
           textTransform: "uppercase",
+          padding: "0 20px",
+          textAlign: "center",
         }}
       >
         <span ref={typeRef} />

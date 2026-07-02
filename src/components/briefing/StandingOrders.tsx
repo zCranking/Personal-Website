@@ -1,19 +1,27 @@
+import Link from "next/link";
 import { standingOrders, sectionIndex } from "@/lib/briefing-content";
 import { site } from "@/lib/content";
 import { SectionLabel } from "./SectionLabel";
 import { Reveal } from "@/components/Reveal";
 import { Magnetic } from "./Magnetic";
 
+// Render only profiles with real URLs — an unfilled "[your-handle]"
+// placeholder must never ship as a dead link.
+const SOCIALS = [
+  { label: "LinkedIn ↗", href: site.linkedin },
+  { label: "GitHub ↗", href: site.github },
+].filter((s) => !s.href.includes("["));
+
 export function StandingOrders({ initials }: { initials: string }) {
   return (
     <section
       id="contact"
+      className="brief-section"
       style={{
         position: "relative",
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        padding: "120px 40px",
         borderTop: "1px solid rgba(237,237,237,0.08)",
         scrollSnapAlign: "start",
       }}
@@ -86,11 +94,14 @@ export function StandingOrders({ initials }: { initials: string }) {
           <Magnetic>
             <a
               href={`mailto:${site.email}`}
+              className="brief-btn-primary"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 10,
                 padding: "15px 24px",
+                maxWidth: "100%",
+                overflowWrap: "anywhere",
                 background: "#3EFF8B",
                 color: "#0A0A0B",
                 textDecoration: "none",
@@ -99,49 +110,41 @@ export function StandingOrders({ initials }: { initials: string }) {
                 letterSpacing: "0.12em",
                 fontWeight: 600,
                 textTransform: "uppercase",
-                transition: "all 0.2s",
               }}
             >
               {site.email}
             </a>
           </Magnetic>
-          <a
-            href={site.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              fontFamily: "var(--font-brief-mono)",
-              fontSize: 12,
-              letterSpacing: "0.14em",
-              color: "rgba(237,237,237,0.55)",
-              textDecoration: "none",
-              textTransform: "uppercase",
-              transition: "color 0.2s",
-            }}
-          >
-            LinkedIn ↗
-          </a>
-          <a
-            href={site.github}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              fontFamily: "var(--font-brief-mono)",
-              fontSize: 12,
-              letterSpacing: "0.14em",
-              color: "rgba(237,237,237,0.55)",
-              textDecoration: "none",
-              textTransform: "uppercase",
-              transition: "color 0.2s",
-            }}
-          >
-            GitHub ↗
-          </a>
+          {SOCIALS.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
+              rel="noreferrer"
+              className="brief-link"
+              style={{
+                fontFamily: "var(--font-brief-mono)",
+                fontSize: 12,
+                letterSpacing: "0.14em",
+                color: "rgba(237,237,237,0.55)",
+                textDecoration: "none",
+                textTransform: "uppercase",
+                transition: "color 0.2s",
+              }}
+            >
+              {s.label}
+            </a>
+          ))}
         </div>
 
         <div
           style={{
             marginTop: 90,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+            gap: 20,
+            flexWrap: "wrap",
             fontFamily: "var(--font-brief-mono)",
             fontSize: 10,
             letterSpacing: "0.18em",
@@ -149,7 +152,20 @@ export function StandingOrders({ initials }: { initials: string }) {
             textTransform: "uppercase",
           }}
         >
-          End of briefing · {initials} · {standingOrders.year}
+          <span>
+            End of briefing · {initials} · {standingOrders.year}
+          </span>
+          <Link
+            href="/letter"
+            className="brief-link"
+            style={{
+              color: "rgba(237,237,237,0.4)",
+              textDecoration: "none",
+              transition: "color 0.2s",
+            }}
+          >
+            Annex: the letter →
+          </Link>
         </div>
       </div>
     </section>

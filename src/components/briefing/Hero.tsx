@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { heroBrief, heroPrimaryCta, totalSections } from "@/lib/briefing-content";
 import { Magnetic } from "./Magnetic";
 import { ScrollCue } from "./ScrollCue";
-import { SparklesCore } from "@/components/ui/sparkles";
+import { ParticleField } from "./ParticleField";
 import { smoothScrollTo } from "@/lib/smooth-scroll";
 
 function scrollHandler(targetId: string) {
@@ -29,12 +29,12 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="top"
+      className="brief-hero"
       style={{
         position: "relative",
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        padding: "0 40px",
         scrollSnapAlign: "start",
         overflow: "hidden",
       }}
@@ -47,15 +47,7 @@ export function Hero() {
           maskImage: "radial-gradient(60% 60% at 50% 40%, black, transparent)",
         }}
       >
-        <SparklesCore
-          background="transparent"
-          minSize={0.4}
-          maxSize={1.1}
-          particleDensity={70}
-          particleColor="#3EFF8B"
-          speed={0.6}
-          className="h-full w-full"
-        />
+        <ParticleField />
       </div>
 
       <motion.div
@@ -132,6 +124,7 @@ export function Hero() {
             <a
               href={heroPrimaryCta.href}
               onClick={scrollHandler(heroPrimaryCta.href.replace("#", ""))}
+              className="brief-btn-primary"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -145,7 +138,6 @@ export function Hero() {
                 letterSpacing: "0.12em",
                 fontWeight: 600,
                 textTransform: "uppercase",
-                transition: "all 0.2s",
               }}
             >
               {heroPrimaryCta.label}
@@ -155,6 +147,7 @@ export function Hero() {
             <a
               href="#contact"
               onClick={scrollHandler("contact")}
+              className="brief-btn-ghost"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -168,7 +161,6 @@ export function Hero() {
                 letterSpacing: "0.12em",
                 fontWeight: 500,
                 textTransform: "uppercase",
-                transition: "all 0.2s",
               }}
             >
               Standing Orders
@@ -178,12 +170,12 @@ export function Hero() {
       </motion.div>
 
       <div
+        className="brief-hero-footer"
         style={{
           position: "absolute",
           bottom: 42,
           left: 0,
           right: 0,
-          padding: "0 56px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-end",
@@ -191,6 +183,7 @@ export function Hero() {
         }}
       >
         <div
+          className="brief-hero-meta"
           style={{
             fontFamily: "var(--font-brief-mono)",
             fontSize: 10,
@@ -206,6 +199,7 @@ export function Hero() {
         </div>
         <ScrollCue targetId="situation" label="Scroll to brief" />
         <div
+          className="brief-hero-meta"
           style={{
             fontFamily: "var(--font-brief-mono)",
             fontSize: 10,

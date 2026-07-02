@@ -9,12 +9,12 @@ export function Assets() {
   return (
     <section
       id="assets"
+      className="brief-section"
       style={{
         position: "relative",
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        padding: "120px 40px",
         borderTop: "1px solid rgba(237,237,237,0.08)",
         scrollSnapAlign: "start",
       }}
@@ -36,10 +36,8 @@ export function Assets() {
         </Reveal>
 
         <div
+          className="brief-assets-grid"
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4,1fr)",
-            gap: 1,
             background: "rgba(237,237,237,0.1)",
             border: "1px solid rgba(237,237,237,0.1)",
           }}

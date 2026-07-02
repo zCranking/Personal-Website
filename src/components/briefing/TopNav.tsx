@@ -68,6 +68,7 @@ export function TopNav({ initials }: { initials: string }) {
 
   return (
     <header
+      className="brief-nav"
       style={{
         position: "fixed",
         top: 0,
@@ -77,7 +78,6 @@ export function TopNav({ initials }: { initials: string }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "24px 40px",
         background:
           "linear-gradient(180deg, rgba(10,10,11,0.92), rgba(10,10,11,0))",
         backdropFilter: "blur(2px)",
@@ -105,6 +105,7 @@ export function TopNav({ initials }: { initials: string }) {
           {initials}
         </span>
         <span
+          className="brief-nav-callsign"
           style={{
             fontFamily: "var(--font-brief-mono)",
             fontSize: 11,
@@ -118,8 +119,13 @@ export function TopNav({ initials }: { initials: string }) {
       </a>
 
       <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
-        <MissionClock />
-        <nav style={{ position: "relative", display: "flex", gap: 28, paddingBottom: 8 }}>
+        <span className="brief-nav-clock">
+          <MissionClock />
+        </span>
+        <nav
+          className="brief-nav-links"
+          style={{ position: "relative", display: "flex", gap: 28, paddingBottom: 8 }}
+        >
           {SECTIONS.map((s) => (
             <a
               key={s.id}

@@ -71,3 +71,126 @@ html.briefing-scroll {
     scroll-snap-type: none;
   }
 }
+
+/* ---- Layout: the briefing is desktop-first inline-styled; these classes
+   own every property that must respond to viewport size. ---- */
+
+.brief-section {
+  padding: 120px 40px;
+}
+
+.brief-hero {
+  padding: 0 40px;
+}
+
+.brief-hero-footer {
+  padding: 0 56px;
+}
+
+.brief-ops-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.brief-assets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+}
+
+.brief-nav {
+  padding: 24px 40px;
+}
+
+.brief-modal-panel {
+  padding: 48px 52px;
+}
+
+.brief-dossier-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .brief-ops-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .brief-section {
+    padding: 88px 20px;
+  }
+  .brief-hero {
+    padding: 0 20px;
+  }
+  .brief-hero-footer {
+    padding: 0 24px;
+  }
+  .brief-assets-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .brief-nav {
+    padding: 16px 20px;
+  }
+  .brief-nav-links,
+  .brief-nav-clock {
+    display: none;
+  }
+  .brief-modal-panel {
+    padding: 32px 24px;
+  }
+  .brief-dossier-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 460px) {
+  .brief-nav-callsign {
+    display: none;
+  }
+  .brief-hero-meta {
+    display: none;
+  }
+}
+
+/* ---- Interactive states: inline styles can't express :hover/:focus. ---- */
+
+.brief-btn-primary {
+  transition: filter 0.2s ease, box-shadow 0.2s ease;
+}
+.brief-btn-primary:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 0 24px rgba(62, 255, 139, 0.35);
+}
+
+.brief-btn-ghost {
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.brief-btn-ghost:hover {
+  border-color: rgba(62, 255, 139, 0.6) !important;
+  color: #3eff8b !important;
+}
+
+.brief-link:hover {
+  color: #f4f4f4 !important;
+}
+
+.briefing-scope a:focus-visible,
+.briefing-scope button:focus-visible,
+.briefing-scope [role="button"]:focus-visible {
+  outline: 1.5px solid #3eff8b;
+  outline-offset: 3px;
+}
+
+/* Touch devices have no hover: operation teasers must be readable at rest. */
+@media (hover: none) {
+  .brief-card-teaser {
+    max-height: 160px !important;
+    opacity: 1 !important;
+  }
+}
