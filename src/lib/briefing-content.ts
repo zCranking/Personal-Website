@@ -7,7 +7,7 @@ import { site } from "./content";
 // with real content — names, numbers, outcomes. While false, the section,
 // its nav link, and the hero CTA are hidden and numbering adapts. Flipping
 // this to true with placeholders still present ships bracket text to visitors.
-export const SHOW_OPERATIONS = false;
+export const SHOW_OPERATIONS = true;
 
 export const callsignTag = "builder · policy";
 
@@ -58,38 +58,38 @@ export const ops: Op[] = [
   {
     code: "OP-01",
     tag: "BUILDING",
-    title: "[Flagship AI Product]",
-    teaser: "[One punchy line with a real number — users, hours saved, revenue.]",
+    title: "AI Powered Corporate Travel Agent",
+    teaser: "Developed an AI-powered travel agent that autonomously manages corporate travel bookings, saving significant time and operational overhead.",
     situation:
-      "[The real problem, for whom, and why it was worth building before anyone asked you to.]",
+      "With my previous experience in buidling AI powered solutions I wanted to create an AI-powered travel agent that could autonomously manage corporate travel bookings, reducing the operational burden on teams.",
     approach:
-      "[The hardest technical or product call you made, and why you made it that way — name the stack, the constraint, the tradeoff.]",
+      "When developing this I had to think about how the AI agent would interact with travel booking systems, handle user requests, and make autonomous decisions reliably.",
     result:
-      "[The outcome, stated as a number wherever possible. Specifics beat adjectives.]",
+      "Results coming soon!",
   },
   {
     code: "OP-02",
     tag: "LEADERSHIP",
-    title: "Student Government & Military Leadership",
-    teaser: "[The title/role, the scope of what you were responsible for, in one line.]",
+    title: "Battalion Commander",
+    teaser: "Lead and oversee a battalion of 300+ cadets across grades 7–12 within the JROTC program",
     situation:
-      "[A real moment of disagreement, pressure, or a decision nobody else wanted to make.]",
+      "Have had to make large scale decision regarding the management of cadet's safety, discipline, and overall program operations.",
     approach:
-      "[What you actually did — not 'I learned leadership,' the specific call you made.]",
+      "Strengthened leadership, organizational management, communication, conflict resolution, and decision-making skills through daily oversight of large-scale operations and dynamic challenges.",
     result:
-      "[What changed because of it. Concrete, not generic.]",
+      "Excited to make changes in my role this coming school year!",
   },
   {
     code: "OP-03",
     tag: "TECHNICAL",
-    title: "[Second Technical Project]",
-    teaser: "[The technical depth — what made this hard, not just what it does.]",
+    title: "AI Quant Trading Bot",
+    teaser: "Developed an AI-powered trading bot capable of executing quantitative trading strategies autonomously, handling real-time market data and decision-making under uncertainty.",
     situation:
-      "[The constraint or bug that made this nontrivial.]",
+      "Started with creating an efficient system without using AI, then integrated AI to handle real-time market data and autonomous trading decisions.",
     approach:
-      "[Architecture and the decision that mattered — what you'd do differently now.]",
+      "It was really important to understand the basic on your own, and then the understanding of when to leverage AI became more obvious.",
     result:
-      "[The measurable outcome — latency, cost, scale, correctness.]",
+      "Mock Trading Results coming soon!",
   },
 ];
 

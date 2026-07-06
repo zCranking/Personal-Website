@@ -31,33 +31,33 @@ export const thesis = {
 export const proofPoints = [
   {
     tag: "Building",
-    title: "[Flagship AI Product Name]",
+    title: "AI Powered Corporate Travel Agent",
     summary:
-      "[One sentence: the real problem it solves, for whom, and the number that proves it — users, hours saved, revenue, anything concrete.]",
+      "Solving the problem of efficiently booking corporate travel using AI.",
     detail:
-      "[2-3 sentences: what it actually is, the hardest technical or product decision you made, and why you made it that way. Specifics beat adjectives — name the stack, the constraint, the tradeoff.]",
+      "The project leverages AI to streamline the process of booking corporate travel, reducing time and friction for users. With the ability to gather data, it can make intelligent recommendations and automate booking decisions efficiently.",
     href: "https://[link-to-product-or-repo]",
-    cta: "See it live",
+    cta: "Coming Soon",
   },
   {
     tag: "Leading",
-    title: "Student Government & Military Leadership",
+    title: "Battalion Commander",
     summary:
-      "[One sentence: the title/role, the scope of what you were responsible for, and the outcome.]",
+      "Lead and oversee a battalion of 300+ cadets across grades 7–12 within the JROTC program",
     detail:
-      "[2-3 sentences: a specific decision you had to make under pressure or disagreement, what you did, and what changed because of it. Avoid generic 'I learned leadership' language — say what you actually did.]",
+      "Work directly with the President, Commandant (CMDT), Senior Army Instructor (SAI), and staff leadership to ensure effective communication and execution throughout the corps. Strengthened leadership, organizational management, communication, conflict resolution, and decision-making skills through daily oversight of large-scale operations and dynamic challenges.",
     href: null,
     cta: null,
   },
   {
     tag: "Engineering",
-    title: "[Second Technical Project Name]",
+    title: "AI Quant Trading Bot",
     summary:
-      "[One sentence: the technical depth — what made this hard, not just what it does.]",
+      "Developed an AI-powered trading bot capable of executing quantitative trading strategies autonomously, handling real-time market data and decision-making under uncertainty.",
     detail:
-      "[2-3 sentences: architecture, the interesting bug or constraint, what you'd do differently now. This is the proof point for engineers reading closely.]",
+      "The bot's architecture integrates data ingestion, signal processing, and execution modules. One challenge was ensuring low-latency decision-making while maintaining robustness against noisy market signals. In hindsight, I would optimize the data pipeline further and implement more sophisticated risk management strategies.",
     href: "https://[link-to-repo]",
-    cta: "Read the writeup",
+    cta: "Will be published soon!",
   },
 ];
 
